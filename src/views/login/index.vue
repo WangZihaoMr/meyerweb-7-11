@@ -34,7 +34,8 @@
               clearable
             >
             </el-input>
-            <el-image class="code_img" :src="url"> </el-image>
+            <el-image class="code_img" :src="code_url" @click="getCaptchaCode">
+            </el-image>
           </div>
         </el-form-item>
         <el-form-item>
@@ -44,10 +45,16 @@
         </el-form-item>
       </el-form>
     </div>
+    <p class="bottom_title">
+      © 2022 浙ICP备16028135号-1 All Rights Reserved | DUCK
+    </p>
   </div>
 </template>
 
 <script>
+import rules from './rules'
+import UserApi from '../../api/user'
+
 export default {
   name: 'login',
   components: {},
@@ -59,19 +66,30 @@ export default {
         code: '',
         token: ''
       },
-      rules: {
-        username: [{ required: true, message: '请输入账号', trigger: 'blur' }],
-        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-        code: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
-      }
+      rules,
+      code_url: ''
     }
   },
-  created() {},
+  created() {
+    this.loadGetCode()
+  },
   methods: {
-    /**
-     * 登录
-     */
-    handleLoginForm() {}
+    // 验证码
+    async loadGetCode() {
+      try {
+        const { captchaImg, token } = await UserApi.getCaptchaCode()
+        this.loginForm.token = token
+        this.code_url = captchaImg
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    // 表单提交验证
+
+    // 登录
+    handleLoginForm() {},
+    // 点击更换验证码
+    getCaptchaCode() {}
   }
 }
 </script>
@@ -125,5 +143,15 @@ export default {
   vertical-align: top;
   border-radius: 4px;
   color: #ffffff;
+}
+::v-deep(.el-input__icon) {
+  line-height: 45px !important;
+}
+.bottom_title {
+  font-size: 14px;
+  line-height: 25px;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 15px;
 }
 </style>
