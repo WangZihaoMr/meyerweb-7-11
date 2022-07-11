@@ -58,6 +58,7 @@
 <script>
 import rules from './rules'
 import Login from '../../api/login'
+// import UserApi from '../../api/user'
 import { mapActions } from 'vuex'
 
 export default {
@@ -88,6 +89,10 @@ export default {
     this.loadGetCode()
   },
   methods: {
+    // async getUserList() {
+    //   const res = await UserApi.getUserList()
+    //   console.log(res)
+    // },
     // 验证码
     async loadGetCode() {
       try {
@@ -119,6 +124,7 @@ export default {
             duration: 3000
           })
           this.$router.push('/')
+          // this.getUserList()
         }
       } catch (error) {
         console.log(error)
