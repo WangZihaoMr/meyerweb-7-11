@@ -57,7 +57,7 @@
 
 <script>
 import rules from './rules'
-import UserApi from '../../api/user'
+import Login from '../../api/login'
 import { mapActions } from 'vuex'
 
 export default {
@@ -91,7 +91,7 @@ export default {
     // 验证码
     async loadGetCode() {
       try {
-        const { captchaImg, token } = await UserApi.getCaptchaCode()
+        const { captchaImg, token } = await Login.getCaptchaCode()
         this.loginForm.token = token
         this.code_url = captchaImg
       } catch (error) {
