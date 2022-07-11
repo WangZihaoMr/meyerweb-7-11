@@ -34,12 +34,15 @@
               clearable
             >
             </el-input>
-            <el-image class="code_img" :src="code_url" @click="getCaptchaCode">
+            <el-image class="code_img" :src="code_url" @click="loadGetCode">
             </el-image>
           </div>
         </el-form-item>
         <el-form-item>
-          <el-button class="login_button" type="danger" @click="handleLoginForm"
+          <el-button
+            class="login_button"
+            type="danger"
+            @click="handleLoginSubmit"
             >立即登录</el-button
           >
         </el-form-item>
@@ -54,20 +57,26 @@
 <script>
 import rules from './rules'
 import UserApi from '../../api/user'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'login',
   components: {},
   data() {
     return {
+      // 登录表单
       loginForm: {
-        username: '',
-        password: '',
+        username: 'duck',
+        password: 'admin888',
         code: '',
         token: ''
       },
+      // 规则校验
       rules,
-      code_url: ''
+      // 验证码路径
+      code_url: '',
+      // 表单校验
+      loginFormRef: ''
     }
   },
   created() {
@@ -85,11 +94,29 @@ export default {
       }
     },
     // 表单提交验证
-
+    handleLoginSubmit() {
+      this.$refs.loginFormRef.validate((valid) => {
+        if (!valid) return
+        this.handleLoginForm()
+      })
+    },
     // 登录
-    handleLoginForm() {},
-    // 点击更换验证码
-    getCaptchaCode() {}
+    async handleLoginForm() {
+      try {
+        const token = await this.login(this.loginForm)
+        // console.log(token)
+        if (token) {
+          this.$router.push('/')
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+    // vuex登录
+    ...mapActions({
+      login: 'user/login'
+    })
   }
 }
 </script>
@@ -143,6 +170,7 @@ export default {
   vertical-align: top;
   border-radius: 4px;
   color: #ffffff;
+  cursor: pointer;
 }
 ::v-deep(.el-input__icon) {
   line-height: 45px !important;

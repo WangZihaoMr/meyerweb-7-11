@@ -11,7 +11,10 @@ const getCaptchaCode = () => {
  * 登录接口
  */
 const login = (data = {}) => {
-  return request({ url: '/login', method: 'POST', data })
+  return request({
+    url: `/login?username=${data.username}&password=${data.password}&code=${data.code}&token=${data.token}`,
+    method: 'POST'
+  })
 }
 
 /**
