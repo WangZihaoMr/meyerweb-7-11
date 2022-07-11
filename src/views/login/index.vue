@@ -43,7 +43,8 @@
             class="login_button"
             type="danger"
             @click="handleLoginSubmit"
-            >立即登录</el-button
+            :loading="loadingStatus"
+            >{{ loadingTxt }}</el-button
           >
         </el-form-item>
       </el-form>
@@ -76,7 +77,11 @@ export default {
       // 验证码路径
       code_url: '',
       // 表单校验
-      loginFormRef: ''
+      loginFormRef: '',
+      // 登录按钮loading加载状态
+      loadingStatus: false,
+      // 登录按钮文本
+      loadingTxt: '立即登录'
     }
   },
   created() {
@@ -102,17 +107,24 @@ export default {
     },
     // 登录
     async handleLoginForm() {
+      this.loadingTxt = this.loadingStatus ? '登录中...' : '立即登录'
       try {
+        this.loadingStatus = true
         const token = await this.login(this.loginForm)
-        // console.log(token)
         if (token) {
+          this.$notify({
+            title: '提示',
+            message: '登录成功',
+            type: 'success',
+            duration: 3000
+          })
           this.$router.push('/')
         }
       } catch (error) {
         console.log(error)
       }
+      this.loadingStatus = false
     },
-
     // vuex登录
     ...mapActions({
       login: 'user/login'
