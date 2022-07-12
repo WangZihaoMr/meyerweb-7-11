@@ -2,7 +2,7 @@
   <div class="role-wrapper">
     <!-- 面包屑 -->
     <bread-crumb></bread-crumb>
-    <div class="role-content">菜单管理</div>
+    <div class="role-content">角色管理</div>
   </div>
 </template>
 

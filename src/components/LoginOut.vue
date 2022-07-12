@@ -59,7 +59,7 @@ export default {
   },
   computed: {
     userInfo() {
-      return this.$store.user.userInfo
+      return this.$store.getters.userInfo
     }
   }
 }

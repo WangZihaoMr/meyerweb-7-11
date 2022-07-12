@@ -62,6 +62,11 @@ export default {
     },
     // tag关闭
     handleTagClose(i) {
+      // console.log(i + 1)
+      // console.log(this.tags.length)
+      if (i + 1 === this.tags.length) {
+        this.$router.push(this.tags[i - 1].path)
+      }
       this.$store.dispatch('tagsview/delTags', i)
     },
     // 全屏功能
