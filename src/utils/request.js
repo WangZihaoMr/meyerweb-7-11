@@ -2,7 +2,7 @@
  * @Author: WangZihao 2597160811@qq.com
  * @Date: 2022-07-11 15:59:17
  * @LastEditors: WangZihao 2597160811@qq.com
- * @LastEditTime: 2022-07-11 23:18:04
+ * @LastEditTime: 2022-07-12 08:45:00
  * @FilePath: \meyerweb\src\utils\request.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -14,6 +14,8 @@ import { Message } from 'element-ui'
 import enumerationObj from '../enumeration/request-message'
 // 引入store实例
 import store from '../store/getters'
+// 引入loading加载方法
+// import Loading from './loading'
 
 // 获取token
 // const token = store.token
@@ -30,12 +32,16 @@ const instance = axios.create({
 // 请求拦截器
 instance.interceptors.request.use(
   function (config) {
+    // 开启loading加载
+    // Loading.open()
     // console.log(store.token)
     const token = store.token
     if (token) config.headers.Authorization = token
     return config
   },
   function (error) {
+    // 关闭loading加载
+    // Loading.close()
     return Promise.reject(error)
   }
 )
@@ -47,12 +53,17 @@ instance.interceptors.response.use(
     if (response.data.code === 200) {
       const { data } = response.data
       console.log(data)
+      // 关闭loading加载
+      // Loading.close()
       return data
     }
+
     // 消息提示
     _ShowErrorMessage(response.data.code, response.data.msg)
   },
   function (error) {
+    // 关闭loading加载
+    // Loading.close()
     return Promise.reject(error)
   }
 )
