@@ -1,15 +1,13 @@
 <!--
  * @Author: WangZihao 2597160811@qq.com
- * @Date: 2022-07-11 20:45:49
+ * @Date: 2022-07-12 09:00:58
  * @LastEditors: WangZihao 2597160811@qq.com
- * @LastEditTime: 2022-07-12 08:59:45
- * @FilePath: \meyerweb\meyerweb\src\layout\Main\index.vue
+ * @LastEditTime: 2022-07-12 09:01:13
+ * @FilePath: \meyerweb\meyerweb\src\views\user\index.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
-  <div class="main-wrapper">
-    <router-view></router-view>
-  </div>
+  <div class="user-wrapper">用户管理</div>
 </template>
 
 <script>

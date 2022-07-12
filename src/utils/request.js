@@ -2,7 +2,7 @@
  * @Author: WangZihao 2597160811@qq.com
  * @Date: 2022-07-11 15:59:17
  * @LastEditors: WangZihao 2597160811@qq.com
- * @LastEditTime: 2022-07-12 08:45:00
+ * @LastEditTime: 2022-07-12 09:35:33
  * @FilePath: \meyerweb\src\utils\request.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -12,14 +12,8 @@ import axios from 'axios'
 import { Message } from 'element-ui'
 // 引入枚举消息值
 import enumerationObj from '../enumeration/request-message'
-// 引入store实例
-import store from '../store/getters'
 // 引入loading加载方法
 // import Loading from './loading'
-
-// 获取token
-// const token = store.token
-
 // 创建axios实例
 const instance = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
@@ -35,7 +29,7 @@ instance.interceptors.request.use(
     // 开启loading加载
     // Loading.open()
     // console.log(store.token)
-    const token = store.token
+    const token = this.$store.getters.token
     if (token) config.headers.Authorization = token
     return config
   },

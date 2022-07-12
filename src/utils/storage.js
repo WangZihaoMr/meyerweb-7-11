@@ -2,7 +2,7 @@
  * @Author: WangZihao 2597160811@qq.com
  * @Date: 2022-07-11 20:35:18
  * @LastEditors: WangZihao 2597160811@qq.com
- * @LastEditTime: 2022-07-11 20:40:59
+ * @LastEditTime: 2022-07-12 10:22:52
  * @FilePath: \meyerweb\src\utils\storage.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -26,9 +26,9 @@ export const setItem = (key, value) => {
 export const getItem = (key) => {
   const data = localStorage.getItem(key)
   try {
-    return data
-  } catch (err) {
     return JSON.parse(data)
+  } catch (err) {
+    return data
   }
 }
 
