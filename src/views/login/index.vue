@@ -57,8 +57,7 @@
 
 <script>
 import rules from './rules'
-import Login from '../../api/login'
-// import UserApi from '../../api/user'
+import LoginApi from '../../api/login'
 import { mapActions } from 'vuex'
 
 export default {
@@ -89,14 +88,10 @@ export default {
     this.loadGetCode()
   },
   methods: {
-    // async getUserList() {
-    //   const res = await UserApi.getUserList()
-    //   console.log(res)
-    // },
     // 验证码
     async loadGetCode() {
       try {
-        const { captchaImg, token } = await Login.getCaptchaCode()
+        const { captchaImg, token } = await LoginApi.getCaptchaCode()
         this.loginForm.token = token
         this.code_url = captchaImg
       } catch (error) {
@@ -123,8 +118,10 @@ export default {
             type: 'success',
             duration: 3000
           })
+          // 用户信息
+          const response = this.$store.dispatch('user/userInfo')
+          if (!response) return
           this.$router.push('/')
-          // this.getUserList()
         }
       } catch (error) {
         console.log(error)

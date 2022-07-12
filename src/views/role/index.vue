@@ -2,7 +2,7 @@
   <div class="role-wrapper">
     <!-- 面包屑 -->
     <bread-crumb></bread-crumb>
-    <el-card>角色管理 </el-card>
+    <div class="role-content">菜单管理</div>
   </div>
 </template>
 
@@ -19,4 +19,14 @@ export default {
   methods: {}
 }
 </script>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.role-wrapper {
+  width: 100%;
+  height: 100%;
+  .role-content {
+    width: 100%;
+    height: calc(100vh - 152px);
+    background-color: #ffffff;
+  }
+}
+</style>

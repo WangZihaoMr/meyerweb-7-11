@@ -2,7 +2,7 @@
  * @Author: WangZihao 2597160811@qq.com
  * @Date: 2022-07-11 15:59:17
  * @LastEditors: WangZihao 2597160811@qq.com
- * @LastEditTime: 2022-07-12 11:54:18
+ * @LastEditTime: 2022-07-12 15:29:20
  * @FilePath: \meyerweb\src\utils\request.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -33,7 +33,7 @@ instance.interceptors.request.use(
     // Loading.open()
     const token = getItem('token')
     // console.log(token)
-    if (token) config.headers.Authorization = token
+    if (token) config.headers.token = token
     return config
   },
   function (error) {

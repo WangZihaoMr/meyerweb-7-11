@@ -1,6 +1,6 @@
 <template>
   <div class="loginOut-wrapper">
-    <el-avatar class="avatar" :size="40" :src="userAvatarUrl"></el-avatar>
+    <el-avatar class="avatar" :size="40" :src="`userInfo.avatar`"></el-avatar>
     <el-dropdown @command="handleOptions">
       <span class="el-dropdown-link">
         duck<i class="el-icon-arrow-down el-icon--right"></i>
@@ -18,9 +18,7 @@ export default {
   name: '',
   components: {},
   data() {
-    return {
-      userAvatarUrl: ''
-    }
+    return {}
   },
   created() {},
   methods: {
@@ -37,8 +35,31 @@ export default {
     handleSettings() {},
     // 退出登录
     async handleLoginOut() {
-      this.$store.dispatch('user/loginOut')
-      this.$router.push('/login')
+      this.$confirm('您确定要退出系统吗？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+        center: true
+      })
+        .then(() => {
+          this.$notify({
+            title: '提示',
+            message: '退出登录...',
+            type: 'success',
+            duration: 2000
+          })
+          this.$store.dispatch('user/loginOut')
+          // 延时两秒退出
+          setTimeout(() => {
+            this.$router.push('/login')
+          }, 2000)
+        })
+        .catch(() => {})
+    }
+  },
+  computed: {
+    userInfo() {
+      return this.$store.user.userInfo
     }
   }
 }

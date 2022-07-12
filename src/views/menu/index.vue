@@ -2,7 +2,7 @@
   <div class="menu-wrapper">
     <!-- 面包屑 -->
     <bread-crumb></bread-crumb>
-    <el-card>菜单管理 </el-card>
+    <div class="menu-content">菜单管理</div>
   </div>
 </template>
 
@@ -19,4 +19,14 @@ export default {
   methods: {}
 }
 </script>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.menu-wrapper {
+  width: 100%;
+  height: 100%;
+  .menu-content {
+    width: 100%;
+    height: calc(100vh - 152px);
+    background-color: #ffffff;
+  }
+}
+</style>

@@ -9,12 +9,8 @@
         @click="handleTagJump(index, item.path)"
       >
         {{ item.title }}
-        <!-- 关闭叉号 -->
-        <span
-          class="close"
-          v-if="index !== 0"
-          :class="{ active_close: $route.path === item.path }"
-          @click="handleTagClose(index)"
+        <!-- 关闭叉号 :class="{ active_close: $route.path === item.path }" -->
+        <span class="close" v-if="index !== 0" @click="handleTagClose(index)"
           ><i class="el-icon-close"></i
         ></span>
       </li>

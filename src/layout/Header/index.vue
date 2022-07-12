@@ -7,13 +7,13 @@
     </div>
     <!-- tags标签 -->
     <tags-view></tags-view>
-    <!--  -->
   </div>
 </template>
 
 <script>
 // 引入tags组件
 import TagsView from '../../components/TagsView'
+
 export default {
   name: '',
   components: {
