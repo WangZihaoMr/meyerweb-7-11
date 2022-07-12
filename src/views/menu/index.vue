@@ -1,11 +1,17 @@
 <template>
-  <div class="menu-wrapper">菜单管理</div>
+  <div class="menu-wrapper">
+    <!-- 面包屑 -->
+    <bread-crumb></bread-crumb>
+    <el-card>菜单管理 </el-card>
+  </div>
 </template>
 
 <script>
+import breadCrumb from '../../components/Breadcrumb'
+
 export default {
   name: '',
-  components: {},
+  components: { breadCrumb },
   data() {
     return {}
   },
