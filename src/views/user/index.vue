@@ -2,7 +2,7 @@
   <div class="user-wrapper">
     <!-- 面包屑 -->
     <bread-crumb></bread-crumb>
-    <el-card>用户管理 </el-card>
+    <el-card> 用户管理 </el-card>
   </div>
 </template>
 

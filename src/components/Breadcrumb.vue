@@ -3,7 +3,9 @@
     <el-card>
       <el-breadcrumb separator-class="el-icon-arrow-right">
         <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/sys/user' }">系统管理</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/user' }"
+          >系统管理</el-breadcrumb-item
+        >
         <el-breadcrumb-item>{{ $route.meta.title }}</el-breadcrumb-item>
       </el-breadcrumb></el-card
     >

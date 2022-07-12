@@ -28,7 +28,7 @@
           content="取消全屏"
           placement="bottom"
         >
-          <i class="el-icon-rank"></i>
+          <i class="el-icon-rank" @click="toggleFullscreen"></i>
         </el-tooltip>
       </div>
       <div>
@@ -38,7 +38,7 @@
           content="关闭所有标签"
           placement="bottom"
         >
-          <i class="el-icon-circle-close"></i>
+          <i class="el-icon-circle-close" @click="handleCloseAllTag"></i>
         </el-tooltip>
       </div>
       <!-- 退出登录 -->
@@ -49,6 +49,8 @@
 
 <script>
 import LoginOut from './LoginOut'
+import screenfull from 'screenfull'
+
 export default {
   name: 'tagsview',
   components: { LoginOut },
@@ -66,6 +68,18 @@ export default {
     // tag关闭
     handleTagClose(i) {
       this.$store.dispatch('tagsview/delTags', i)
+    },
+    // 全屏功能
+    toggleFullscreen() {
+      if (!screenfull.isEnabled) {
+        return false
+      }
+      screenfull.request()
+    },
+    // 关闭所有tag标签
+    handleCloseAllTag() {
+      this.$store.dispatch('tagsview/delAlltags', 1)
+      this.$router.push('/console')
     }
   },
   computed: {
@@ -149,5 +163,8 @@ export default {
       transform: rotate(20deg);
     }
   }
+}
+.item {
+  cursor: pointer;
 }
 </style>
