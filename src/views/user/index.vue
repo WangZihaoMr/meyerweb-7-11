@@ -68,7 +68,11 @@
           <template slot-scope="scope">
             <el-button size="mini" plain type="success">编辑</el-button>
             <el-button size="mini" plain type="warning">分配角色</el-button>
-            <el-button size="mini" plain type="danger" @click="handleDelUser(scope.row.id)"
+            <el-button
+              size="mini"
+              type="danger"
+              plain
+              @click="handleDelUser(scope.row.id)"
               >删除</el-button
             >
           </template>
