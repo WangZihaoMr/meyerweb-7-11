@@ -41,14 +41,17 @@
           <i class="el-icon-circle-close"></i>
         </el-tooltip>
       </div>
+      <!-- 退出登录 -->
+      <login-out></login-out>
     </div>
   </div>
 </template>
 
 <script>
+import LoginOut from './LoginOut'
 export default {
   name: 'tagsview',
-  components: {},
+  components: { LoginOut },
   data() {
     return {}
   },
@@ -140,6 +143,7 @@ export default {
   }
   .functional-wrapper {
     display: flex;
+    align-items: center;
     .full_screen {
       margin-right: 20px;
       transform: rotate(20deg);
