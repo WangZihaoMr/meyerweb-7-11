@@ -118,9 +118,7 @@ export default {
             type: 'success',
             duration: 3000
           })
-          // 用户信息
-          const response = this.$store.dispatch('user/userInfo')
-          if (!response) return
+          if (!token) return
           this.$router.push('/')
         }
       } catch (error) {

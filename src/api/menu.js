@@ -2,7 +2,7 @@
  * @Author: WangZihao 2597160811@qq.com
  * @Date: 2022-07-12 14:31:28
  * @LastEditors: WangZihao 2597160811@qq.com
- * @LastEditTime: 2022-07-12 14:49:50
+ * @LastEditTime: 2022-07-12 18:31:09
  * @FilePath: \meyerweb\meyerweb\src\api\menu.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -23,7 +23,7 @@ const addMenu = (data = {}) => {
  * @returns
  */
 const delMenu = (id) => {
-  return request({ url: `/sys/menu/del/{id}`, method: 'DELETE' })
+  return request({ url: `/sys/menu/del/${id}`, method: 'DELETE' })
 }
 
 /**
@@ -32,7 +32,7 @@ const delMenu = (id) => {
  * @returns
  */
 const menuSingle = (id) => {
-  return request({ url: `/sys/menu/info/{id}`, method: 'GET' })
+  return request({ url: `/sys/menu/info/${id}`, method: 'GET' })
 }
 
 /**

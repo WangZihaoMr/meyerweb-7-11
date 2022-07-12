@@ -9,7 +9,6 @@
         @click="handleTagJump(index, item.path)"
       >
         {{ item.title }}
-        <!-- 关闭叉号 :class="{ active_close: $route.path === item.path }" -->
         <span class="close" v-if="index !== 0" @click="handleTagClose(index)"
           ><i class="el-icon-close"></i
         ></span>
@@ -88,8 +87,6 @@ export default {
   watch: {
     $route: {
       handler(to, from) {
-        console.log('to', to)
-        console.log('watch', from)
         const routeObj = {
           title: to.meta.title,
           path: to.path
@@ -141,14 +138,15 @@ export default {
           background-color: #e6a23c;
         }
       }
-      .active_close {
-        display: none;
-      }
     }
     .active {
       background-color: #e6a23c;
       border-color: #e6a23c;
       color: #fff;
+      .close:hover {
+        color: #fff;
+        background-color: #ebb563;
+      }
     }
   }
   .functional-wrapper {
