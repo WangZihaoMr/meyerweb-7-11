@@ -21,7 +21,7 @@
     </ul>
     <!-- 放大全屏、关闭所有标签功能 -->
     <div class="functional-wrapper">
-      <div>
+      <div class="full_screen">
         <el-tooltip
           class="item"
           effect="dark"
@@ -140,6 +140,10 @@ export default {
   }
   .functional-wrapper {
     display: flex;
+    .full_screen {
+      margin-right: 20px;
+      transform: rotate(20deg);
+    }
   }
 }
 </style>
