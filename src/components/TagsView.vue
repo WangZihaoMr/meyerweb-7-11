@@ -20,10 +20,10 @@
         <el-tooltip
           class="item"
           effect="dark"
-          content="取消全屏"
+          :content="isFullscreenTxt"
           placement="bottom"
         >
-          <i class="el-icon-rank" @click="toggleFullscreen"></i>
+          <i class="el-icon-rank" @click="toggleScreen"></i>
         </el-tooltip>
       </div>
       <div>
@@ -50,7 +50,10 @@ export default {
   name: 'tagsview',
   components: { LoginOut },
   data() {
-    return {}
+    return {
+      isFullscreen: false,
+      isFullscreenTxt: '全屏'
+    }
   },
   created() {},
   methods: {
@@ -60,6 +63,7 @@ export default {
         this.$router.push(path)
       }
     },
+
     // tag关闭
     handleTagClose(i) {
       // console.log(i + 1)
@@ -69,15 +73,18 @@ export default {
       }
       this.$store.dispatch('tagsview/delTags', i)
     },
+
     // 全屏功能
-    toggleFullscreen() {
-      if (!screenfull.isEnabled) {
-        return false
-      }
-      screenfull.request()
+    toggleScreen() {
+      screenfull.toggle()
+      this.isFullscreen = !this.isFullscreen
+      this.isFullscreenTxt = this.isFullscreen === false ? '全屏' : '取消全屏'
     },
+
     // 关闭所有tag标签
     handleCloseAllTag() {
+      // 如果没有可关闭的标签，则中止执行
+      if (this.tags.length === 1) return
       this.$store.dispatch('tagsview/delAlltags', 1)
       this.$router.push('/console')
     }
