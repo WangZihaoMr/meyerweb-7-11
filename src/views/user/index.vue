@@ -24,7 +24,12 @@
       <el-table :data="userList" border stripe style="width: 100%">
         <el-table-column align="center" type="index" label="序号" width="60">
         </el-table-column>
-        <el-table-column align="center" prop="username" label="用户名" width="150">
+        <el-table-column
+          align="center"
+          prop="username"
+          label="用户名"
+          width="150"
+        >
         </el-table-column>
         <el-table-column align="center" prop="avatar" label="头像" width="150">
           <template slot-scope="scope">
@@ -42,7 +47,12 @@
         </el-table-column>
         <el-table-column align="center" prop="email" label="邮箱" width="150">
         </el-table-column>
-        <el-table-column align="center" prop="createTime" label="注册时间" width="200">
+        <el-table-column
+          align="center"
+          prop="createTime"
+          label="注册时间"
+          width="200"
+        >
         </el-table-column>
         <el-table-column align="center" prop="status" label="状态">
           <template slot-scope="scope">
@@ -56,10 +66,10 @@
         </el-table-column>
         <el-table-column align="center" label="操作" width="260">
           <template slot-scope="scope">
-            <el-tag type="success">编辑</el-tag>
-            <el-tag type="warning">分配角色</el-tag>
-            <el-tag type="danger" @click="handleDelUser(scope.row.id)"
-              >删除</el-tag
+            <el-button size="mini" plain type="success">编辑</el-button>
+            <el-button size="mini" plain type="warning">分配角色</el-button>
+            <el-button size="mini" plain type="danger" @click="handleDelUser(scope.row.id)"
+              >删除</el-button
             >
           </template>
         </el-table-column>

@@ -1,9 +1,9 @@
 <template>
   <div class="header-wrapper">
     <!-- 侧边栏的伸缩按钮 -->
-    <div class="openBtn">
-      <i class="el-icon-s-fold aside_icon"></i>
-      <!-- <i class="el-icon-s-unfold aside_icon"></i> -->
+    <div class="openBtn" @click="handleFlex">
+      <i class="el-icon-s-fold aside_icon" v-if="isIconStatus"></i>
+      <i class="el-icon-s-unfold aside_icon" v-else></i>
     </div>
     <!-- tags标签 -->
     <tags-view></tags-view>
@@ -20,10 +20,18 @@ export default {
     TagsView
   },
   data() {
-    return {}
+    return {
+      isIconStatus: true,
+      isIcon: ''
+    }
   },
   created() {},
-  methods: {}
+  methods: {
+    handleFlex() {
+      this.isIconStatus = !this.isIconStatus
+      this.$bus.$emit('handleFlex', this.isIconStatus)
+    }
+  }
 }
 </script>
 <style scoped lang="scss">
@@ -34,5 +42,6 @@ export default {
   align-items: center;
   font-size: 25px;
   color: #ffffff;
+  cursor: pointer;
 }
 </style>
