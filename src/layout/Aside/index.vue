@@ -2,7 +2,7 @@
  * @Author: WangZihao 2597160811@qq.com
  * @Date: 2022-07-11 20:44:56
  * @LastEditors: WangZihao 2597160811@qq.com
- * @LastEditTime: 2022-07-13 18:36:20
+ * @LastEditTime: 2022-07-13 18:39:37
  * @FilePath: \meyerweb\meyerweb\src\layout\Aside\index.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -51,7 +51,7 @@
 
 <script>
 import MenuTree from './MenuTree'
-// import { filterMenus } from '../../utils/menus'
+import { filterMenus } from '../../utils/menus'
 export default {
   name: '',
   components: { MenuTree },
@@ -71,7 +71,7 @@ export default {
   method: {},
   computed: {
     menus() {
-      return this.$store.getters.menus
+      return filterMenus(this.$store.getters.menus)
     }
   }
 }

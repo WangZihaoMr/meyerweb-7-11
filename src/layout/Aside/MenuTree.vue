@@ -5,7 +5,7 @@
       :index="item.path"
     >
       <i :class="'el-icon-' + item.icon"></i>
-      <span slot="title">{{ item.label }}</span>
+      <span slot="title">{{ item.title }}</span>
     </el-menu-item>
 
     <el-submenu
@@ -13,8 +13,8 @@
       :index="item.path"
     >
       <template slot="title">
-        <i :class="'el-icon' + item.icon"></i>
-        <span>{{ item.label }}</span>
+        <i :class="'el-icon-' + item.icon"></i>
+        <span>{{ item.title }}</span>
       </template>
       <!-- <el-menu-item :index="item.path">
         <i :class="'el-icon' + item.icon"></i>
@@ -31,6 +31,7 @@
 
 <script>
 import MenuTree from './MenuTree'
+
 export default {
   props: {
     item: {
