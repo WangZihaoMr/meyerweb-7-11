@@ -1,3 +1,11 @@
+<!--
+ * @Author: WangZihao 2597160811@qq.com
+ * @Date: 2022-07-12 09:01:22
+ * @LastEditors: WangZihao 2597160811@qq.com
+ * @LastEditTime: 2022-07-14 01:57:12
+ * @FilePath: \meyerweb\meyerweb\src\views\role\index.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <template>
   <div class="role-wrapper">
     <!-- 面包屑 -->
@@ -6,46 +14,49 @@
       <!-- 头部 -->
       <div class="header">
         <el-form :inline="true" :model="userForm" class="demo-form-inline">
-          <el-form-item label="用户名">
+          <el-form-item label="角色">
             <el-input
-              v-model="userForm.username"
-              placeholder="请输入用户名"
+              v-model="userForm.name"
+              placeholder="请输入角色"
             ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="success" icon="el-icon-search">查询</el-button>
+            <el-button
+              type="success"
+              icon="el-icon-search"
+              @click="handleUserFormQuery"
+              >查询</el-button
+            >
           </el-form-item>
         </el-form>
         <!-- 新增 -->
-        <el-button type="primary" icon="el-icon-edit">新增</el-button>
+        <el-button
+          type="primary"
+          icon="el-icon-edit"
+          @click="handleOpenDialogForm('add')"
+          >新增</el-button
+        >
       </div>
 
       <!-- 表格 -->
-      <el-table :data="userList" border stripe style="width: 100%">
+      <el-table :data="roleList" border stripe style="width: 100%">
         <el-table-column align="center" type="index" label="序号" width="60">
         </el-table-column>
-        <el-table-column
-          align="center"
-          prop="username"
-          label="用户名"
-          width="150"
-        >
+        <el-table-column align="center" prop="code" label="编码" width="150">
         </el-table-column>
-        <el-table-column align="center" prop="avatar" label="头像" width="150">
+        <el-table-column align="center" prop="name" label="角色" width="150">
+        </el-table-column>
+        <el-table-column align="center" prop="remark" label="描述" width="200">
+        </el-table-column>
+        <el-table-column align="center" prop="status" label="状态">
           <template slot-scope="scope">
-            <div class="block">
-              <el-avatar :size="70" :src="scope.row.avatar"></el-avatar>
-            </div>
+            <el-switch
+              :value="scope.row.status == 1 ? true : false"
+              active-color="#13ce66"
+              inactive-color="#ff4949"
+            >
+            </el-switch>
           </template>
-        </el-table-column>
-        <el-table-column align="center" prop="roles" label="角色" width="240">
-          <template slot-scope="scope">
-            <el-tag v-for="(item, index) in scope.row.roles" :key="index">{{
-              item.name
-            }}</el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column align="center" prop="email" label="邮箱" width="150">
         </el-table-column>
         <el-table-column
           align="center"
@@ -54,19 +65,15 @@
           width="200"
         >
         </el-table-column>
-        <el-table-column align="center" prop="status" label="状态">
-          <template slot-scope="scope">
-            <el-switch
-              v-model="scope.row.status"
-              active-color="#13ce66"
-              inactive-color="#ff4949"
-            >
-            </el-switch>
-          </template>
-        </el-table-column>
         <el-table-column align="center" label="操作" width="260">
           <template slot-scope="scope">
-            <el-button size="mini" plain type="success">编辑</el-button>
+            <el-button
+              size="mini"
+              plain
+              type="success"
+              @click="handleOpenDialogForm('edit', scope.row.id)"
+              >编辑</el-button
+            >
             <el-button size="mini" plain type="warning">分配角色</el-button>
             <el-button
               size="mini"
@@ -78,6 +85,73 @@
           </template>
         </el-table-column>
       </el-table>
+
+      <!-- 分页 -->
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="current"
+        :page-sizes="[20, 30, 50, 70]"
+        :page-size="20"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total"
+      >
+      </el-pagination>
+
+      <!-- <el-popover
+        placement="bottom"
+        title="标题"
+        width="200"
+        trigger="click"
+        content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。"
+      >
+        <el-button slot="reference">click 激活</el-button>
+      </el-popover> -->
+
+      <!-- 弹出框 -->
+      <el-dialog
+        :title="dialog_Title"
+        :visible.sync="dialogVisible"
+        width="30%"
+        :before-close="handleResetForm"
+        center
+      >
+        <el-form
+          :model="dialogForm"
+          :rules="rules"
+          ref="dialogFormRef"
+          label-width="100px"
+          class="demo-ruleForm"
+        >
+          <el-form-item label="角色" prop="name">
+            <el-input
+              v-model="dialogForm.name"
+              placeholder="请输入角色"
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="编码" prop="code">
+            <el-input
+              v-model="dialogForm.code"
+              placeholder="请输入编码"
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="描述" prop="remark">
+            <el-input type="textarea" v-model="dialogForm.remark"></el-input>
+          </el-form-item>
+          <el-form-item label="状态" prop="status">
+            <el-radio-group v-model="dialogForm.status">
+              <el-radio :value="1">启用</el-radio>
+              <el-radio :value="0">禁用</el-radio>
+            </el-radio-group>
+          </el-form-item>
+          <el-form-item>
+            <el-button @click="handleResetForm">取消</el-button>
+            <el-button type="success" @click="handleSureDialogForm"
+              >确定</el-button
+            >
+          </el-form-item>
+        </el-form>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -85,15 +159,27 @@
 <script>
 import breadCrumb from '../../components/Breadcrumb'
 import RoleApi from '../../api/roles'
+import rules from './rules'
 
 export default {
   name: '',
   components: { breadCrumb },
   data() {
     return {
-      current: 1,
+      userForm: { name: '' },
       size: 20,
-      roleList: []
+      current: 1,
+      total: 0,
+      roleList: [],
+      dialogVisible: false,
+      dialogForm: {
+        name: '',
+        remark: '',
+        code: '',
+        status: 2
+      },
+      dialog_Title: '新增角色',
+      rules
     }
   },
   created() {
@@ -101,11 +187,86 @@ export default {
   },
   methods: {
     async loadRoleList() {
-      const response = await RoleApi.getRoleList({
-        current: this.current,
-        size: this.size
-      })
-      console.log(response)
+      try {
+        const { size, current, total, records } = await RoleApi.getRoleList({
+          size: this.size,
+          current: this.current,
+          name: ''
+        })
+        this.pageSize = size
+        this.pageNum = current
+        this.total = total
+        this.roleList = records
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    // 查询用户
+    async handleUserFormQuery() {
+      try {
+        this.loadRoleList()
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    // 删除用户
+    handleDelUser(id) {},
+    // 关闭模态框
+    handleResetForm() {
+      this.dialogVisible = false
+      this.$refs.dialogFormRef.resetFields()
+    },
+    // 打开对话框
+    handleOpenDialogForm(action, id) {
+      this.dialogVisible = true
+      this.dialog_Title = action === 'add' ? '新增角色' : '编辑角色'
+      if (action === 'edit') return this.handleBackfill(id)
+    },
+    // 添加用户
+    async handleAddDialogForm() {
+      try {
+        const response = await RoleApi.addUser(this.dialogForm)
+        this.loadUserList()
+        this.dialogVisible = false
+        console.log(response)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    // 数据回填
+    async handleBackfill(id) {
+      try {
+        const row = await RoleApi.findUser(id)
+        this.dialogForm = row
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    // 编辑用户
+    async handleEditDialogForm() {
+      try {
+        const res = await RoleApi.updateUser(this.dialogForm)
+        this.loadRoleList()
+        this.dialogVisible = false
+        console.log(res)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    // 确定按钮
+    handleSureDialogForm() {
+      this.dialog_Title === '新增用户'
+        ? this.handleAddDialogForm()
+        : this.handleEditDialogForm()
+    },
+    // 分页
+    handleSizeChange(val) {
+      this.size = val
+      this.loadRoleList()
+    },
+    handleCurrentChange(val) {
+      this.current = val
+      this.loadRoleList()
     }
   }
 }
@@ -115,9 +276,16 @@ export default {
   width: 100%;
   height: 100%;
   .role-content {
+    padding: 20px;
     width: 100%;
-    height: calc(100vh - 152px);
+    // height: calc(100vh - 152px);
     background-color: #ffffff;
+    box-sizing: border-box;
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
   }
 }
 ::v-deep(.el-table .cell) {
