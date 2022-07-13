@@ -2,29 +2,32 @@
  * @Author: WangZihao 2597160811@qq.com
  * @Date: 2022-07-11 20:44:56
  * @LastEditors: WangZihao 2597160811@qq.com
- * @LastEditTime: 2022-07-13 00:03:11
+ * @LastEditTime: 2022-07-13 18:36:20
  * @FilePath: \meyerweb\meyerweb\src\layout\Aside\index.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
   <div class="aside-wrapper">
+    <!-- {{ menus }} -->
     <el-menu
       :default-active="$route.path"
       class="el-menu-vertical-demo"
       background-color="#222d32"
       text-color="#fff"
       active-text-color="#ffd04b"
-      unique-opened
       collapse-transition
       router
       :width="isWidth"
       :collapse="isCollapse"
     >
-      <el-menu-item index="/console">
-        <i class="el-icon-s-home"></i>
-        <span slot="title">控制台</span>
-      </el-menu-item>
-      <el-submenu index="2">
+      <!-- unique-opened -->
+      <!-- <template> </template> -->
+      <MenuTree
+        v-for="(item, index) in menus"
+        :key="index"
+        :item="item"
+      ></MenuTree>
+      <!-- <el-submenu index="2">
         <template slot="title">
           <i class="el-icon-s-grid"></i>
           <span>系统管理</span>
@@ -41,15 +44,17 @@
           <i class="el-icon-menu"></i>
           <span slot="title">菜单管理</span>
         </el-menu-item>
-      </el-submenu>
+      </el-submenu> -->
     </el-menu>
   </div>
 </template>
 
 <script>
+import MenuTree from './MenuTree'
+// import { filterMenus } from '../../utils/menus'
 export default {
   name: '',
-  components: {},
+  components: { MenuTree },
   data() {
     return {
       isCollapse: false,
@@ -63,7 +68,12 @@ export default {
       this.isWidth = this.isCollapse ? '200px' : '40px'
     })
   },
-  method: {}
+  method: {},
+  computed: {
+    menus() {
+      return this.$store.getters.menus
+    }
+  }
 }
 </script>
 <style scoped lang="scss">
