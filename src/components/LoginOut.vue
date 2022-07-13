@@ -1,9 +1,9 @@
 <template>
   <div class="loginOut-wrapper">
-    <el-avatar class="avatar" :size="40" :src="`userInfo.avatar`"></el-avatar>
+    <el-avatar class="avatar" :size="40" :src="userInfo.avatar"></el-avatar>
     <el-dropdown @command="handleOptions">
       <span class="el-dropdown-link">
-        duck<i class="el-icon-arrow-down el-icon--right"></i>
+        {{ userInfo.username }}<i class="el-icon-arrow-down el-icon--right"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item command="settings">个人设置</el-dropdown-item>
