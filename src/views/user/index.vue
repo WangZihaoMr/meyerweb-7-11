@@ -8,7 +8,7 @@
         <el-form :inline="true" :model="userForm" class="demo-form-inline">
           <el-form-item label="用户名">
             <el-input
-              v-model="userForm.username"
+              v-model.trim="userForm.username"
               placeholder="请输入用户名"
               clearable
               @clear="loadUserList"
@@ -291,12 +291,12 @@ export default {
         : this.handleEditDialogForm()
     },
     // 分页
-    handleSizeChange(val) {
-      this.size = val
+    handleSizeChange(size) {
+      this.size = size
       this.loadUserList()
     },
-    handleCurrentChange(val) {
-      this.current = val
+    handleCurrentChange(current) {
+      this.current = current
       this.loadUserList()
     }
   }

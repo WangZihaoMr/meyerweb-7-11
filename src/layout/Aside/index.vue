@@ -17,7 +17,6 @@
       active-text-color="#ffd04b"
       collapse-transition
       router
-      :width="isWidth"
       :collapse="isCollapse"
     >
       <!-- unique-opened -->
