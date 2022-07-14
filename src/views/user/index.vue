@@ -137,25 +137,25 @@
           </el-form-item>
           <el-form-item label="用户名" prop="username">
             <el-input
-              v-model="dialogForm.username"
+              v-model.trim="dialogForm.username"
               placeholder="请输入用户名"
             ></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password">
             <el-input
-              v-model="dialogForm.password"
+              v-model.trim="dialogForm.password"
               placeholder="请输入密码"
               show-password
             ></el-input>
           </el-form-item>
           <el-form-item label="邮箱" prop="email">
             <el-input
-              v-model="dialogForm.email"
+              v-model.trim="dialogForm.email"
               placeholder="请输入邮箱"
             ></el-input>
           </el-form-item>
           <el-form-item label="状态" prop="status">
-            <el-radio-group v-model="dialogForm.status">
+            <el-radio-group v-model.trim="dialogForm.status">
               <el-radio :value="1">启用</el-radio>
               <el-radio :value="0">禁用</el-radio>
             </el-radio-group>

@@ -2,7 +2,7 @@
  * @Author: WangZihao 2597160811@qq.com
  * @Date: 2022-07-12 09:01:22
  * @LastEditors: WangZihao 2597160811@qq.com
- * @LastEditTime: 2022-07-14 01:57:12
+ * @LastEditTime: 2022-07-14 10:55:42
  * @FilePath: \meyerweb\meyerweb\src\views\role\index.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -16,7 +16,7 @@
         <el-form :inline="true" :model="userForm" class="demo-form-inline">
           <el-form-item label="角色">
             <el-input
-              v-model="userForm.name"
+              v-model.trim="userForm.name"
               placeholder="请输入角色"
             ></el-input>
           </el-form-item>
@@ -125,21 +125,24 @@
         >
           <el-form-item label="角色" prop="name">
             <el-input
-              v-model="dialogForm.name"
+              v-model.trim="dialogForm.name"
               placeholder="请输入角色"
             ></el-input>
           </el-form-item>
           <el-form-item label="编码" prop="code">
             <el-input
-              v-model="dialogForm.code"
+              v-model.trim="dialogForm.code"
               placeholder="请输入编码"
             ></el-input>
           </el-form-item>
           <el-form-item label="描述" prop="remark">
-            <el-input type="textarea" v-model="dialogForm.remark"></el-input>
+            <el-input
+              type="textarea"
+              v-model.trim="dialogForm.remark"
+            ></el-input>
           </el-form-item>
           <el-form-item label="状态" prop="status">
-            <el-radio-group v-model="dialogForm.status">
+            <el-radio-group v-model.trim="dialogForm.status">
               <el-radio :value="1">启用</el-radio>
               <el-radio :value="0">禁用</el-radio>
             </el-radio-group>
@@ -191,7 +194,7 @@ export default {
         const { size, current, total, records } = await RoleApi.getRoleList({
           size: this.size,
           current: this.current,
-          name: ''
+          name: this.userForm.name
         })
         this.pageSize = size
         this.pageNum = current
@@ -225,9 +228,9 @@ export default {
     // 添加用户
     async handleAddDialogForm() {
       try {
-        const response = await RoleApi.addUser(this.dialogForm)
-        this.loadUserList()
+        const response = await RoleApi.addRole(this.dialogForm)
         this.dialogVisible = false
+        this.loadRoleList()
         console.log(response)
       } catch (error) {
         console.log(error)
@@ -255,7 +258,7 @@ export default {
     },
     // 确定按钮
     handleSureDialogForm() {
-      this.dialog_Title === '新增用户'
+      this.dialog_Title === '新增角色'
         ? this.handleAddDialogForm()
         : this.handleEditDialogForm()
     },
