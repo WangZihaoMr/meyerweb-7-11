@@ -110,7 +110,7 @@
         :current-page="current"
         :page-sizes="[20, 30, 50, 70]"
         :page-size="20"
-        layout="total, sizes, prev, pager, next, jumper"
+        layout="jumper, prev, pager, next, sizes, total"
         :total="total"
       >
       </el-pagination>
@@ -307,7 +307,7 @@ export default {
   width: 100%;
   height: 100%;
   .user-content {
-    padding: 20px;
+    padding: 20px 20px 60px 20px;
     width: 100%;
     // height: calc(100vh - 152px);
     background-color: #ffffff;
@@ -330,6 +330,10 @@ export default {
 }
 .el-tag {
   margin-left: 10px;
+  margin-top: 10px;
+}
+.el-pagination {
+  float: right;
   margin-top: 10px;
 }
 </style>
