@@ -10,6 +10,8 @@
             <el-input
               v-model="userForm.username"
               placeholder="请输入用户名"
+              clearable
+              @clear="loadUserList"
             ></el-input>
           </el-form-item>
           <el-form-item>
@@ -31,7 +33,13 @@
       </div>
 
       <!-- 表格 -->
-      <el-table :data="userList" border stripe style="width: 100%">
+      <el-table
+        v-loading="loadingStatus"
+        :data="userList"
+        border
+        stripe
+        style="width: 100%"
+      >
         <el-table-column align="center" type="index" label="序号" width="60">
         </el-table-column>
         <el-table-column
@@ -197,7 +205,8 @@ export default {
         status: 0
       },
       rules,
-      dialog_Title: '新增用户'
+      dialog_Title: '新增用户',
+      loadingStatus: false
     }
   },
   created() {
@@ -207,16 +216,19 @@ export default {
     // 获取用户列表
     async loadUserList() {
       try {
+        this.loadingStatus = true
         const { records, current, size, total } = await UserApi.getUserList({
           size: this.size,
           current: this.current,
           username: this.userForm.username
         })
+        this.loadingStatus = false
         this.pageSize = size
         this.pageNum = current
         this.total = total
         this.userList = records
       } catch (error) {
+        this.loadingStatus = false
         console.log(error)
       }
     },
