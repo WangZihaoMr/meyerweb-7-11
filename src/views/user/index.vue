@@ -164,8 +164,8 @@
           </el-form-item>
           <el-form-item label="状态" prop="status">
             <el-radio-group v-model.trim="dialogForm.status">
-              <el-radio :value="1">启用</el-radio>
-              <el-radio :value="0">禁用</el-radio>
+              <el-radio :label="1">启用</el-radio>
+              <el-radio :label="0">禁用</el-radio>
             </el-radio-group>
           </el-form-item>
           <el-form-item>
@@ -198,11 +198,11 @@ export default {
       dialogVisible: false,
       dialogForm: {
         avatar:
-          'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-5a307996-…944b0d18/94d8e009-b183-4d54-a389-724181af5362.jpg',
+          'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-5a307996-a7f5-483d-a6f1-6ea9944b0d18/94d8e009-b183-4d54-a389-724181af5362.jpg',
         username: '',
         password: '',
         email: '',
-        status: 0
+        status: 1
       },
       rules,
       dialog_Title: '新增用户',

@@ -2,7 +2,7 @@
  * @Author: WangZihao 2597160811@qq.com
  * @Date: 2022-07-11 20:44:56
  * @LastEditors: WangZihao 2597160811@qq.com
- * @LastEditTime: 2022-07-13 18:39:37
+ * @LastEditTime: 2022-07-15 00:27:55
  * @FilePath: \meyerweb\meyerweb\src\layout\Aside\index.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -56,15 +56,15 @@ export default {
   components: { MenuTree },
   data() {
     return {
-      isCollapse: false,
-      isWidth: '40px'
+      isCollapse: false
     }
   },
   created() {
-    this.$bus.$on('handleFlex', (res) => {
-      console.log(res)
-      this.isCollapse = res
-      this.isWidth = this.isCollapse ? '200px' : '40px'
+    this.$bus.$on('handleFlex', (status) => {
+      console.log(status)
+      this.isCollapse = status
+      this.$store.commit('aside/setStatus', this.isCollapse)
+      console.log(this.isCollapse)
     })
   },
   method: {},
